@@ -39,14 +39,22 @@ Copy
 Edit
 pip install -r requirements.txt
 
-3. Add Environment Variables
+3. create a .env file with thode api key.
+
+CohereAPIKey = your_api_key
+Username = Kunal Narkhede
+Assistantname = Buddy
+GROQ_API_KEY =  your_api_key
+InputLanguage = en, hi
+
+4. Add Environment Variables
 
 Create a .env file in the root directory with:
 ini
 Copy
 Edit
 GroqAPIKey=your_groq_api_key_here
-4. Run the Assistant
+5. Run the Assistant
 
 bash
 Copy

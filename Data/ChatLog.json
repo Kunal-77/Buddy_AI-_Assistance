@@ -134,5 +134,13 @@
     {
         "role": "assistant",
         "content": "According to the search results, Elon Musk's net worth is estimated to be around $381 billion as of May 2025, according to the Bloomberg Billionaires Index. Additionally, another source estimates his net worth to be around $424.7 billion as of May 2025, according to Forbes."
+    },
+    {
+        "role": "user",
+        "content": "who is tony stack"
+    },
+    {
+        "role": "assistant",
+        "content": "According to the search results, Tony Stark, also known as Iron Man, is a fictional character primarily portrayed by Robert Downey Jr. in the Marvel Cinematic Universe (MCU) media franchise. He is a billionaire industrialist, a founding member of the Avengers, and the former CEO of Stark Industries."
     }
 ]

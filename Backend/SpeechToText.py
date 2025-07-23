@@ -6,6 +6,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from dotenv import dotenv_values
 import os
 import mtranslate as mt
+import speech_recognition as sr
+
 
 # Load environment variables from the .env file.
 env_vars = dotenv_values(".env")
@@ -55,7 +57,7 @@ HtmlCode = '''<!DOCTYPE html>
 HtmlCode = str(HtmlCode).replace("recognition.lang = '';", f"recognition.lang = '{InputLanguage}';")
 
 # Write the modified HTML code to a file.
-os.makedirs("Data", exist_ok=True)  # Create folder if it doesn't exist
+  # Create folder if it doesn't exist
 with open("Data/Voice.html", "w") as f:
     f.write(HtmlCode)
 # Get the current working directory.
@@ -65,11 +67,11 @@ current_dir = os.getcwd()
 Link = f"{current_dir}/Data/Voice.html"
 # Set Chrome options for the WebDriver.
 chrome_options = Options()
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.142.86 Safari/537.36"
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.7204.169 Safari/537.36"
 chrome_options.add_argument(f'user-agent={user_agent}')
 chrome_options.add_argument('--use-fake-ui-for-media-stream')
-chrome_options.add_argument('--use-fake-device-for-media-stream')
-chrome_options.add_argument('--headless=new')
+#chrome_options.add_argument('--use-fake-device-for-media-stream')
+#chrome_options.add_argument('--headless=new')
 
 # Initialize the Chrome WebDriver using the ChromeDriverManager.
 service = Service(ChromeDriverManager().install())

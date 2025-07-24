@@ -94,3 +94,4 @@ if __name__ == "__main__":
     while True:
         # Prompt user for input and pass it to TextToSpeech function
         TextToSpeech(input("Enter the text: "))
+        #if you want bUddy to read all the text simply write "TTS" in last "TextToSpeech"

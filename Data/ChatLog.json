@@ -150,5 +150,21 @@
     {
         "role": "assistant",
         "content": "Hi Kunal!"
+    },
+    {
+        "role": "user",
+        "content": "who is salman khan"
+    },
+    {
+        "role": "assistant",
+        "content": "According to the search results, Salman Khan is an Indian actor, film producer, and television personality who predominantly works in Hindi films."
+    },
+    {
+        "role": "user",
+        "content": "hii"
+    },
+    {
+        "role": "assistant",
+        "content": "Hi Kunal!"
     }
 ]

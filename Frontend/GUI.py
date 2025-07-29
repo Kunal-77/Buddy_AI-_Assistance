@@ -248,7 +248,7 @@ class InitialScreen(QWidget):
         self.toggle_icon()
         self.icon_label.mousePressEvent = self.toggle_icon
 
-        self.label = QLabel("")
+        self.label = QLabel("Voice input window will open. Please allow mic access in Chrome and speak.")
         self.label.setStyleSheet("color: white; font-size:16px ; margin-bottom:0;")
 
         content_layout.addWidget(gif_label, alignment=Qt.AlignCenter)

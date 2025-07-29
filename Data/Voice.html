@@ -12,7 +12,8 @@
         let recognition;
 
         function startRecognition() {
-            recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
             recognition.lang = 'en';
             recognition.continuous = true;
 

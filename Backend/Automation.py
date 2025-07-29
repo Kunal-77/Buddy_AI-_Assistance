@@ -61,7 +61,7 @@ def Content(Topic):
         messages.append({'role': "user", 'content': f"{prompt}"})  # Add the user's prompt to messages.
 
         completion = client.chat.completions.create(
-            model="mixtral-8x7b-32768",       # Specify the AI model.
+            model="llama3-70b-8192",       # Specify the AI model.
             messages=SystemChatBot + messages, # Include system instructions and chat history.
             max_tokens=2048,                  # Limit the maximum tokens in the response.
             temperature=0.7,                  # Adjust response randomness.
@@ -105,37 +105,54 @@ def PlayYoutube(query):
 
 # Function to open an application or a relevant website.
 def OpenApp(app, sess=requests.session()):
-    try:
-        appopen(app, match_closest=True, output=True, throw_error=True)  # Attempt to open the app.
-        return True  # Indicate success.
+    from AppOpener.features import AppNotFound
+    import webbrowser
 
-    except:
-        # Nested function to extract links from HTML content.
+    try:
+        appopen(app, match_closest=True, output=True, throw_error=True)
+        return True
+
+    except AppNotFound:
+        # If the app isn't found, fallback to browser
+        print(f"[AppOpener] '{app}' not found. Trying browser fallback...")
+        if "youtube" in app.lower():
+            webopen("https://www.youtube.com")
+        elif "chrome" in app.lower():
+            webopen("https://www.google.com/chrome/")
+        else:
+            webopen(f"https://www.google.com/search?q={app}")
+        return True
+
+    except Exception as e:
+        print(f"[OpenApp Error] {e}")
+
         def extract_links(html):
             if html is None:
-                return []  # Return empty list if no HTML.
+                return []
 
-            soup = BeautifulSoup(html, 'html.parser')  # Parse the HTML content.
-            links = soup.find_all('a', {'jsname': 'UWckNb'})  # Find relevant links.
-            return [link.get('href') for link in links]  # Return the links.
+            soup = BeautifulSoup(html, 'html.parser')
+            links = soup.find_all('a', {'jsname': 'UWckNb'})
+            return [link.get('href') for link in links if link.get('href')]
 
-        # Nested function to perform a Google search and retrieve HTML.
         def search_google(query):
-            url = f"https://www.google.com/search?q={query}"  # Construct the Google search URL.
-            headers = {"User-Agent": useragent}  # Use the predefined user-agent.
-            response = sess.get(url, headers=headers)  # Perform the GET request.
+            url = f"https://www.google.com/search?q={query}"
+            headers = {"User-Agent": useragent}
+            response = sess.get(url, headers=headers)
 
             if response.status_code == 200:
-                return response.text  # Return the HTML content if successful.
+                return response.text
             else:
-                print("Failed to retrieve search results.")  # Print an error message.
+                print("Failed to retrieve search results.")
             return None
 
-        html = search_google(app)  # Perform the Google search.
+        html = search_google(app)
+        links = extract_links(html)
 
-        if html:
-            link = extract_links(html)[0]  # Extract the first link from the search results.
-            webopen(link)  # Open the link in a web browser.
+        if links:
+            webopen(links[0])
+            print(f"[Fallback] Opened {links[0]} in browser.")
+        else:
+            print("No valid links found in fallback search.")
 
     return True  # Indicate success.
 
@@ -225,7 +242,7 @@ async def TranslateAndExecute(commands: list[str]):
             funcs.append(fun)
 
         else:
-            print(f"No Function Found. For [command]")  # Print an error for unrecognized commands.
+            print(f"[TranslateAndExecute] No matching function found for command: '{command}'")  # Print an error for unrecognized commands.
 
     results = await asyncio.gather(*funcs)  # Execute all tasks concurrently.
 

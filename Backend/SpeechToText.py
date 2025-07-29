@@ -30,7 +30,8 @@ HtmlCode = '''<!DOCTYPE html>
         let recognition;
 
         function startRecognition() {
-            recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
             recognition.lang = '';
             recognition.continuous = true;
 
@@ -82,8 +83,9 @@ TempDirPath = f"{current_dir}/Frontend/Files"
 
 # Function to set the assistant's status by writing it to a file.
 def SetAssistantStatus(Status):
-    with open(f"{TempDirPath}/status.data", "w", encoding='utf-8') as file:
+    with open(os.path.join(TempDirPath, "Status.data"), "w", encoding='utf-8') as file:
         file.write(Status)
+
 
 # Function to modify a query to ensure proper punctuation and formatting.
 def QueryModifier(Query):

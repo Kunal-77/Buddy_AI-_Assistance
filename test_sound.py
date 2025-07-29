@@ -1,1 +1,0 @@
-print("Voice:", AssistantVoice)

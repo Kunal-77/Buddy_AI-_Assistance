@@ -116,7 +116,7 @@ def MainExecution():
                 TaskExecution = True
 
     if ImageExecution == True:
-        with open(r"Frontend\Files\ImageGeneratoion.data", "w") as file:
+        with open(r"Frontend\Files\ImageGeneration.data", "w") as file:
             file.write(f"{ImageGenerationQuery},True")
 
         try:
